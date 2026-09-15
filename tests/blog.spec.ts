@@ -18,7 +18,7 @@ test.describe('Blog', () => {
 
         // verify all post title lengths are greater than 10
         for (const text of await recentPostsList.allTextContents()) {
-            expect(text?.trim().length).toBeGreaterThan(100);
+            expect(text?.trim().length).toBeGreaterThan(10);
         };
     });
 });
