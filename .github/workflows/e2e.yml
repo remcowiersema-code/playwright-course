@@ -12,7 +12,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: 24
 
       - name: Install dependencies
         run: npm ci
@@ -28,4 +28,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with: 
           name: Test results
-          path: test-results
+          path: test-results/
