@@ -30,11 +30,14 @@ export default [
       // Playwright recommended rules
       ...playwright.configs["playwright-test"].rules,
 
+      // Unused vars → geel lijntje
+      "@typescript-eslint/no-unused-vars": "warn",
+
       // Optioneel maar sterk aanbevolen:
       // Fouten op vergeten await bij Promises
       "@typescript-eslint/no-floating-promises": "error",
       "@typescript-eslint/require-await": "error",
-      "@typescript-eslint/no-misused-promises": "error"
+      // "@typescript-eslint/no-misused-promises": "error"
     }
   }
 ];
