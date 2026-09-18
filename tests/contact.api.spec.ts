@@ -1,40 +1,22 @@
-import { test, expect, APIRequestContext } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import ContactPage from "../pages/contact.page";
+import apiController from "../controller/api.controller";
+import type { User } from "../controller/api.controller";
 
 test.describe('Contact', () => {
+
     let contactPage: ContactPage;
-    let fakerApi: APIRequestContext;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let randomPerson: any;
+    let randomPerson: User;
 
-    test.beforeAll(async ({ playwright }) => {
-        // Created new API context
-        fakerApi = await playwright.request.newContext({
-            baseURL: 'https://jsonplaceholder.typicode.com/'
+    test.beforeAll(async () => {
+        await apiController.init();
+        randomPerson = await apiController.getUser(1);
+
+        const newUserTodo = await apiController.createUserTodo({
+            title: "Learn Playwright",
+            completed: false
         });
-
-        // Make a get request on users and storing response
-        const response = await fakerApi.get('users');
-
-        // Created responseBody Json
-        const responseBody = await response.json();
-
-        // Generate random index 
-        const randomIndex = Math.floor(Math.random() * responseBody.length);
-
-        // Pick random person from responseBody
-        randomPerson = responseBody[randomIndex];
-
-        // Make a post resquest and storing response, this logic will work for put and patch aswell
-        const postResponse = await fakerApi.post('/users/1/todos', {
-            data: {
-                "title": "Learn playwright",
-                "completed": "false"
-            }
-        });
-
-        const postResponseBody = await postResponse.json();
-        console.log(postResponseBody)
+        console.log(newUserTodo)
     })
 
     test.beforeEach(async ({ page }) => {
